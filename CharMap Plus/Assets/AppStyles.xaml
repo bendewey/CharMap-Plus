@@ -1,0 +1,54 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CharMap_Plus.Assets">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Assets/AppTheme.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <!-- Text Styles -->
+    <Style x:Key="AppBaseTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="TextTrimming" Value="None"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="LineStackingStrategy" Value="MaxHeight"/>
+        <Setter Property="TextLineBounds" Value="Full"/>
+    </Style>
+
+
+    <Style x:Key="TitleBarTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource AppBaseTextBlockStyle}">
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="FontWeight" Value="SemiLight"/>
+        <Setter Property="Foreground" Value="{StaticResource TitleBarForegroundBrush}"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Margin" Value="12,0,0,0"/>
+        <Setter Property="TextWrapping" Value="NoWrap" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+        <Setter Property="OpticalMarginAlignment" Value="TrimSideBearings"/>
+    </Style>
+
+
+    <Style x:Key="AppHeaderTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource HeaderTextBlockStyle}">
+        <Setter Property="FontSize" Value="24" />
+        <Setter Property="Foreground" Value="White" />
+    </Style>
+
+    <Style x:Key="AppListItemHeadingTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource SubheaderTextBlockStyle}">
+        
+    </Style>
+    
+    <Style x:Key="AppListItemTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource CaptionTextBlockStyle}">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontWeight" Value="Bold" />
+    </Style>
+
+
+    <Style x:Key="AppListItemDetailsTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource CaptionTextBlockStyle}">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="Foreground" Value="#FF333333" />
+    </Style>
+
+
+
+</ResourceDictionary>

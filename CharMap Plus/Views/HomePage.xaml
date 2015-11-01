@@ -1,0 +1,75 @@
+﻿<Page
+    x:Class="CharMap_Plus.Views.HomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CharMap_Plus"
+    xmlns:controls="using:CharMap_Plus.Controls"
+    xmlns:data="using:CharMap_Plus.Model"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Page.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition />
+        </TransitionCollection>
+    </Page.Transitions>
+    <Page.Resources>
+        <!-- Use a collection view source for content that presents itself as a list of items that can be grouped or sorted.  Otherwise, you can use x:Bind
+        directly on the ListView's item source to for further optimization. Please see the AppUIBasics sample for an example of how to do this.  -->
+        <CollectionViewSource x:Name="FontCVS"  IsSourceGrouped="True" Source="{x:Bind ViewModel.FontGroups, Mode=OneWay}" />
+
+        <!-- When using x:Bind, you need to set x:DataType -->
+        <DataTemplate x:Name="FontListViewTemplate" x:DataType="data:FontDetail">
+            <Grid d:DesignWidth="420" d:DesignHeight="100">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="ABCDEF" FontFamily="{x:Bind Name}" Grid.ColumnSpan="4" Style="{StaticResource AppListItemHeadingTextBlockStyle}" />
+                <TextBlock Text="{x:Bind Name}" Grid.Row="1" Style="{StaticResource AppListItemTextBlockStyle}" />
+
+                <TextBlock Text="Type:" Grid.Row="2" Style="{StaticResource AppListItemDetailsTextBlockStyle}" />
+                <TextBlock Text="{x:Bind Type}" Style="{StaticResource AppListItemDetailsTextBlockStyle}" Grid.Row="2" Grid.Column="1" />
+
+                <TextBlock Text="Characters:" Style="{StaticResource AppListItemDetailsTextBlockStyle}" Grid.Row="2" Grid.Column="2" />
+                <TextBlock Text="{x:Bind CharacterCount}" Style="{StaticResource AppListItemDetailsTextBlockStyle}" Grid.Row="2" Grid.Column="3" />
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+
+    <controls:PageContainer Title="CharMap Plus">
+        <Grid EntranceNavigationTransitionInfo.IsTargetElement="True">
+            <TextBlock Text="Store&#xE001;" FontFamily="ms-appx:///Fonts/ModernUiDrawing.ttf#Modern-UI-Icons-Drawing" />
+            <ListView
+                Margin="0,40"
+                  ItemsSource="{x:Bind FontCVS.View}"
+                  ItemTemplate="{StaticResource FontListViewTemplate}"
+                  IsItemClickEnabled="True"
+                  ItemClick="{x:Bind ViewModel.FontClicked}">
+                <ListView.GroupStyle>
+                    <GroupStyle >
+                        <GroupStyle.HeaderTemplate>
+                            <DataTemplate x:DataType="data:FontGroup">
+                                <TextBlock Text="{x:Bind Description}" 
+                                       Style="{ThemeResource TitleTextBlockStyle}"/>
+                            </DataTemplate>
+                        </GroupStyle.HeaderTemplate>
+                    </GroupStyle>
+                </ListView.GroupStyle>
+            </ListView>
+        </Grid>
+    </controls:PageContainer>
+
+    <Page.BottomAppBar>
+        <CommandBar Background="{ThemeResource TitleBarBackgroundBrush}">
+            <AppBarButton x:Name="AddItemBtn" Label="Add Item" Icon="Add"  />
+        </CommandBar>
+    </Page.BottomAppBar>
+</Page>
