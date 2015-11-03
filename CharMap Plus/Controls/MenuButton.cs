@@ -14,7 +14,7 @@ namespace CharMap_Plus.Controls
 
         // Using a DependencyProperty as the backing store for NavigateUri.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty NavigateUriProperty =
-            DependencyProperty.Register("NavigateUri", typeof(string), typeof(MenuButton), new PropertyMetadata(0));
+            DependencyProperty.Register("NavigateUri", typeof(string), typeof(MenuButton), new PropertyMetadata(null));
         
 
         public MenuButton()
@@ -26,7 +26,7 @@ namespace CharMap_Plus.Controls
         private void MenuButton_Click(object sender, RoutedEventArgs e)
         {
             var frame = Window.Current.Content as Frame;
-            if (frame != null)
+            if (frame != null && !string.IsNullOrEmpty(NavigateUri))
             {
                 frame.Navigate(GetPageType(NavigateUri), null);
             }

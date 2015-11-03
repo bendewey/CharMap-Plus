@@ -17,7 +17,7 @@
     </Page.Transitions>
 
     <Page.Resources>
-        <CollectionViewSource x:Name="CharsCVS"  Source="{x:Bind Chars, Mode=OneWay}" />
+        <CollectionViewSource x:Name="CharsCVS"  Source="{x:Bind ViewModel.Chars2, Mode=OneWay}" />
         
         <Style x:Key="CharButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="{ThemeResource ButtonBackgroundBrush}"/>
@@ -120,10 +120,11 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        
         <Style x:Key="TitleComboBoxStyle" TargetType="ComboBox">
-            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Padding" Value="12,0,0,0"/>
             <Setter Property="MinWidth" Value="{ThemeResource ComboBoxThemeMinWidth}"/>
-            <Setter Property="Foreground" Value="#66000000"/>
+            <Setter Property="Foreground" Value="{ThemeResource TitleBarForegroundBrush}"/>
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderBrush" Value="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"/>
             <Setter Property="BorderThickness" Value="{ThemeResource ComboBoxBorderThemeThickness}"/>
@@ -140,6 +141,7 @@
             <Setter Property="VerticalAlignment" Value="Stretch"/>
             <Setter Property="FontFamily" Value="{ThemeResource ContentControlThemeFontFamily}"/>
             <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="SemiLight"/>
             <Setter Property="ItemsPanel">
                 <Setter.Value>
                     <ItemsPanelTemplate>
@@ -150,7 +152,7 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="ComboBox">
-                        <Grid>
+                        <Grid Background="{TemplateBinding Background}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="32"/>
@@ -219,11 +221,11 @@
                                     </VisualState>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
-                            <ContentPresenter x:Name="ContentPresenter" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                            <FontIcon x:Name="DropDownGlyph" AutomationProperties.AccessibilityView="Raw" Grid.Column="1" Foreground="{ThemeResource SystemControlForegroundBaseMediumHighBrush}" FontSize="12" FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE0E5;" HorizontalAlignment="Right" IsHitTestVisible="False" Margin="0,10,10,10" VerticalAlignment="Center"/>
+                            <ContentPresenter x:Name="ContentPresenter" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Foreground="{TemplateBinding Foreground}"/>
+                            <FontIcon x:Name="DropDownGlyph" AutomationProperties.AccessibilityView="Raw" Grid.Column="1" Foreground="{TemplateBinding Foreground}" FontSize="12" FontFamily="{ThemeResource SymbolThemeFontFamily}" Glyph="&#xE0E5;" HorizontalAlignment="Right" IsHitTestVisible="False" Margin="0,10,10,10" VerticalAlignment="Center"/>
                             <Popup x:Name="Popup">
-                                <Border x:Name="PopupBorder" BorderBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}" BorderThickness="{ThemeResource ComboBoxDropdownBorderThickness}" Background="{ThemeResource SystemControlBackgroundChromeMediumLowBrush}" HorizontalAlignment="Stretch">
-                                    <ScrollViewer x:Name="ScrollViewer" AutomationProperties.AccessibilityView="Raw" BringIntoViewOnFocusChange="{TemplateBinding ScrollViewer.BringIntoViewOnFocusChange}" Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}" HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}" HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}" IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}" IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}" MinWidth="{ThemeResource ComboBoxPopupThemeMinWidth}" VerticalSnapPointsType="OptionalSingle" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}" VerticalSnapPointsAlignment="Near" ZoomMode="Disabled">
+                                <Border x:Name="PopupBorder" BorderBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}" BorderThickness="{ThemeResource ComboBoxDropdownBorderThickness}" Background="{ThemeResource ComboBoxPopupBackgroundBrush}" HorizontalAlignment="Stretch">
+                                    <ScrollViewer x:Name="ScrollViewer" AutomationProperties.AccessibilityView="Raw" BringIntoViewOnFocusChange="{TemplateBinding ScrollViewer.BringIntoViewOnFocusChange}" Foreground="{ThemeResource ComboBoxPopupForegroundBrush}" HorizontalScrollMode="{TemplateBinding ScrollViewer.HorizontalScrollMode}" HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}" IsHorizontalRailEnabled="{TemplateBinding ScrollViewer.IsHorizontalRailEnabled}" IsVerticalRailEnabled="{TemplateBinding ScrollViewer.IsVerticalRailEnabled}" IsDeferredScrollingEnabled="{TemplateBinding ScrollViewer.IsDeferredScrollingEnabled}" MinWidth="{ThemeResource ComboBoxPopupThemeMinWidth}" VerticalSnapPointsType="OptionalSingle" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" VerticalScrollMode="{TemplateBinding ScrollViewer.VerticalScrollMode}" VerticalSnapPointsAlignment="Near" ZoomMode="Disabled" RequestedTheme="Dark">
                                         <ItemsPresenter/>
                                     </ScrollViewer>
                                 </Border>
@@ -235,13 +237,12 @@
         </Style>
     </Page.Resources>
 
-    <controls:PageContainer Title="{x:Bind SelectedFontFamily}">
+    <controls:PageContainer Title="{x:Bind ViewModel.SelectedFontFamily}">
         <controls:PageContainer.TitleTemplate>
             <DataTemplate>
-                <ComboBox SelectedItem="{Binding}" ItemsSource="{Binding AllFonts, ElementName=PageRoot}" Style="{StaticResource TitleComboBoxStyle}" d:DesignWidth="455.5" d:DesignHeight="50"/>
+                <ComboBox x:Name="FontSelector" SelectedItem="{Binding}" ItemsSource="{Binding ViewModel.AllFonts, ElementName=PageRoot}" Style="{StaticResource TitleComboBoxStyle}" SelectionChanged="FontSelector_SelectionChanged" d:DesignWidth="455.5" d:DesignHeight="50"/>
             </DataTemplate>
         </controls:PageContainer.TitleTemplate>
-
         <GridView  EntranceNavigationTransitionInfo.IsTargetElement="True"
                    Grid.Row="1" ItemTemplate="{StaticResource CharDataTemplate}" ItemsSource="{x:Bind CharsCVS.View}" ItemContainerStyle="{StaticResource CharGridViewTemplate}" 
                   

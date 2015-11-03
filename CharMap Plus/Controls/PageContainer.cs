@@ -5,7 +5,7 @@ namespace CharMap_Plus.Controls
 {
     public class PageContainer : ContentControl
     {
-
+        public event RoutedEventHandler RefreshClicked;
 
         public object Title
         {
@@ -28,13 +28,27 @@ namespace CharMap_Plus.Controls
         public static readonly DependencyProperty TitleTemplateProperty =
             DependencyProperty.Register("TitleTemplate", typeof(DataTemplate), typeof(PageContainer), new PropertyMetadata(null));
 
-
-
-
-
+        
         public PageContainer()
         {
             DefaultStyleKey = typeof(PageContainer);
+        }
+
+        protected override void OnApplyTemplate()
+        {
+            base.OnApplyTemplate();
+
+            var refreshButton = GetTemplateChild("RefreshButton") as Button;
+            if (refreshButton != null)
+            {
+                refreshButton.Click += (s, e) =>
+                {
+                    if (RefreshClicked != null)
+                    {
+                        RefreshClicked(this, new RoutedEventArgs());
+                    }
+                };
+            }
         }
     }
 }

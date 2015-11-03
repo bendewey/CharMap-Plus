@@ -20,7 +20,7 @@
     <Style x:Key="TitleBarTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource AppBaseTextBlockStyle}">
         <Setter Property="FontSize" Value="20" />
         <Setter Property="FontWeight" Value="SemiLight"/>
-        <Setter Property="Foreground" Value="{StaticResource TitleBarForegroundBrush}"/>
+        <Setter Property="Foreground" Value="{ThemeResource TitleBarForegroundBrush}"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Margin" Value="12,0,0,0"/>
         <Setter Property="TextWrapping" Value="NoWrap" />

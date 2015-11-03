@@ -5,12 +5,19 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
 
 namespace CharMap_Plus.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public async void HandleError(Exception ex)
+        {
+            var dialog = new MessageDialog(ex.ToString());
+            await dialog.ShowAsync();
+        }
 
         public void Set<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
         {

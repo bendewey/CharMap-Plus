@@ -44,11 +44,10 @@
         </DataTemplate>
     </Page.Resources>
 
-    <controls:PageContainer Title="CharMap Plus">
+    <controls:PageContainer Title="CharMap Plus" RefreshClicked="PageContainer_RefreshClicked">
         <Grid EntranceNavigationTransitionInfo.IsTargetElement="True">
-            <TextBlock Text="Store&#xE001;" FontFamily="ms-appx:///Fonts/ModernUiDrawing.ttf#Modern-UI-Icons-Drawing" />
             <ListView
-                Margin="0,40"
+                Margin="0"
                   ItemsSource="{x:Bind FontCVS.View}"
                   ItemTemplate="{StaticResource FontListViewTemplate}"
                   IsItemClickEnabled="True"
@@ -66,10 +65,11 @@
             </ListView>
         </Grid>
     </controls:PageContainer>
-
+    <!--
     <Page.BottomAppBar>
         <CommandBar Background="{ThemeResource TitleBarBackgroundBrush}">
             <AppBarButton x:Name="AddItemBtn" Label="Add Item" Icon="Add"  />
         </CommandBar>
     </Page.BottomAppBar>
+    -->
 </Page>

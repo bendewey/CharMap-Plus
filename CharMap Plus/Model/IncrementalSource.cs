@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +17,22 @@ namespace CharMap_Plus.Model
     {
         private int VirtualCount { get; set; }
         private int CurrentPage { get; set; }
-        private IPagedSource<K> Source { get; set; }
+
+        private IPagedSource<K> _source;
+        public IPagedSource<K> Source
+        {
+            get { return _source; }
+            set
+            {
+                _source = value;
+                this.VirtualCount = int.MaxValue;
+                this.CurrentPage = 0;
+                LoadMoreItemsAsync(100);
+            }
+        }
+
+        public IncrementalSource() : this(null)
+        { }
 
         public IncrementalSource(IPagedSource<K> source)
         {
@@ -34,7 +50,14 @@ namespace CharMap_Plus.Model
 
         public IAsyncOperation<LoadMoreItemsResult> LoadMoreItemsAsync(uint count)
         {
-            var nextPageItems = this.Source.GetPage(++this.CurrentPage, 25);
+            if (this.Source == null)
+            {
+                return Task.FromResult(new LoadMoreItemsResult() { Count = 0 }).AsAsyncOperation<LoadMoreItemsResult>();
+            }
+
+            Debug.WriteLine("Loading More Items " + count);
+
+            var nextPageItems = this.Source.GetPage(++this.CurrentPage, (int)count);
 
             if (false)
             {
@@ -69,6 +92,7 @@ namespace CharMap_Plus.Model
 
                     }).AsAsyncOperation<LoadMoreItemsResult>();
             }
+            
         }
 
         #endregion

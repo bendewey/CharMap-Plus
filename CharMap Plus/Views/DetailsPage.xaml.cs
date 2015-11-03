@@ -1,4 +1,5 @@
 ﻿using CharMap_Plus.Model;
+using CharMap_Plus.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -27,15 +28,13 @@ namespace CharMap_Plus.Views
     /// </summary>
     public sealed partial class DetailsPage : Page
     {
-        public string SelectedFontFamily { get; set; }
-
-        public ObservableCollection<string> AllFonts { get; set; }
-        public IncrementalSource<PagedSource<FontChar>, FontChar> Chars { get; set; }
-
+        public DetailsPageViewModel ViewModel { get; set; }
 
         public DetailsPage()
         {
             this.InitializeComponent();
+
+            ViewModel = new DetailsPageViewModel();
         }
 
         private void SetupTitleBarBackButton()
@@ -46,42 +45,35 @@ namespace CharMap_Plus.Views
             SystemNavigationManager.GetForCurrentView().AppViewBackButtonVisibility = showTitleBack ? AppViewBackButtonVisibility.Visible : AppViewBackButtonVisibility.Collapsed;
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            base.OnNavigatedTo(e);
-            SetupTitleBarBackButton();
-
-            AllFonts = new ObservableCollection<string>(App.Repository.AllFonts.Select(f => f.Name));
-            SelectedFontFamily = e.Parameter as string;
-
-            var fontMatch = App.Repository.GetFont(SelectedFontFamily);
-            if (fontMatch.Type == "Online")
+            try
             {
-                SelectedFontFamily = fontMatch.Family;
-                if (fontMatch.CharacterCodes != null)
+                base.OnNavigatedTo(e);
+                SetupTitleBarBackButton();
+
+                await ViewModel.Load(e.Parameter as string);
+            }
+            catch (Exception ex)
+            {
+                ViewModel.HandleError(ex);
+            }
+        }
+
+        private async void FontSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                var selectedFont = ((ComboBox)sender).SelectedItem as string;
+                if (ViewModel.SelectedFontFamily != selectedFont)
                 {
-                    Chars = new IncrementalSource<PagedSource<FontChar>, FontChar>(new PagedSource<FontChar>(fontMatch.CharacterCodes.Select(c => new FontChar()
-                    {
-                        Char = (char)c.Value,
-                        Family = SelectedFontFamily,
-                        Size = 48
-                    })));
+                    await ViewModel.Load(selectedFont);
                 }
             }
-            else
+            catch (Exception ex)
             {
-                var enumer = new FontEnumeration.FontEnumerator();
-                var codes = enumer.ListSupportedChars(SelectedFontFamily);
-                Chars = new IncrementalSource<PagedSource<FontChar>, FontChar>(new PagedSource<FontChar>(codes.Where(c => c > 0 && c != 10 && c != 13 && c != 20).Select(c => new FontChar()
-                {
-                    Char = (char)c,
-                    Family = SelectedFontFamily,
-                    Size = 38
-                })));
+                ViewModel.HandleError(ex);
             }
-
-            
         }
-        
     }
 }

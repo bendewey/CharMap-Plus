@@ -108,6 +108,9 @@
     <Content Include="Fonts\ModernUiDrawing.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Fonts\ModernUI-Drawing.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +127,7 @@
     <Compile Include="Model\PagedSource.cs" />
     <Compile Include="Services\FontRepository.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\DetailsPageViewModel.cs" />
     <Compile Include="Views\CharDetail.xaml.cs">
       <DependentUpon>CharDetail.xaml</DependentUpon>
     </Compile>

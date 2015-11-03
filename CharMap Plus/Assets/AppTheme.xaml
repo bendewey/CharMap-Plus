@@ -4,7 +4,6 @@
 
 
     <SolidColorBrush x:Key="TitleBarBackgroundBrush" Color="#fff3f5f0"/>
-    <SolidColorBrush x:Key="TitleBarForegroundBrush" Color="#FF325D88"/>
 
     <SolidColorBrush x:Key="TitleBarButtonBackgroundBrush" Color="Transparent"/>
     <SolidColorBrush x:Key="TitleBarButtonForegroundBrush" Color="#FF325D88"/>
@@ -39,10 +38,13 @@
     <SolidColorBrush x:Key="ButtonDisabledForegroundBrush" Color="#992e2f2a"/>
     <SolidColorBrush x:Key="ButtonDisabledBackgroundBrush" Color="Transparent"/>
     <SolidColorBrush x:Key="ButtonDisabledBorderBrush" Color="Transparent"/>
-    
-    
+
+    <SolidColorBrush x:Key="ComboBoxPopupBackgroundBrush" Color="#FF325D88"/>
+    <SolidColorBrush x:Key="ComboBoxPopupForegroundBrush" Color="White"/>
+
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Default">
+            <SolidColorBrush x:Key="TitleBarForegroundBrush" Color="#FF325D88"/>
             <SolidColorBrush x:Key="ThemeBrush" Color="#FF325D88" />
             <SolidColorBrush x:Key="LightThemeBrush" Color="#339DCA3B" />
             <SolidColorBrush x:Key="DarkThemeBrush" Color="#FF475a1f" />
@@ -58,7 +60,22 @@
         </ResourceDictionary>
 
         <ResourceDictionary x:Key="Light">
-            
+            <SolidColorBrush x:Key="TitleBarForegroundBrush" Color="#FF325D88"/>
+            <SolidColorBrush x:Key="LightThemeBrush" Color="#339DCA3B" />
+            <SolidColorBrush x:Key="DarkThemeBrush" Color="#FF475a1f" />
+            <SolidColorBrush x:Key="BackButtonForegroundBrush" Color="Black" />
+            <SolidColorBrush x:Key="ControlPageBackgroundBrush" Color="White" />
+            <SolidColorBrush x:Key="ChromeHighBrush" Color="#FFF9F9F9" />
+            <SolidColorBrush x:Key="BackgroundBrush" Color="#FFFFFFFF" />
+            <SolidColorBrush x:Key="Gray80Brush" Color="#FF333333" />
+            <SolidColorBrush x:Key="PageHeaderBackgroundBrush" Color="#44000000" />
+            <SolidColorBrush x:Key="ApplicationHeaderForegroundThemeBrush" Color="White" />
+            <SolidColorBrush x:Key="ApplicationHeaderBackgroundThemeBrush" Color="#FF9DCA3B" />
+            <SolidColorBrush x:Key="ApplicationPageBackgroundBrush" Color="#fff3f5f0" />
+        </ResourceDictionary>
+
+        <ResourceDictionary x:Key="Dark">
+            <SolidColorBrush x:Key="TitleBarForegroundBrush" Color="White"/>
             <SolidColorBrush x:Key="LightThemeBrush" Color="#339DCA3B" />
             <SolidColorBrush x:Key="DarkThemeBrush" Color="#FF475a1f" />
             <SolidColorBrush x:Key="BackButtonForegroundBrush" Color="Black" />

@@ -2,6 +2,8 @@
 using CharMap_Plus.Views;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,8 +16,8 @@ namespace CharMap_Plus.ViewModels
     {
         public Frame Frame;
 
-        private List<FontGroup> _fontGroups;
-        public List<FontGroup> FontGroups
+        private ObservableCollection<FontGroup> _fontGroups;
+        public ObservableCollection<FontGroup> FontGroups
         {
             get { return _fontGroups; }
             set { Set(ref _fontGroups, value); }
@@ -31,17 +33,21 @@ namespace CharMap_Plus.ViewModels
             //};
             //g.Add(new FontDetail() { Name = "Arial" });
 
-            //FontGroups = new List<FontGroup>()
+            FontGroups = new ObservableCollection<FontGroup>();
             //{
-            //g    
+            //g
             //};
-            
+
         }
 
         public async Task Load()
         {
+            FontGroups.Clear();
             await App.Repository.LoadAsync();
-            FontGroups = App.Repository.GetFontGroups();
+            foreach(var g in App.Repository.GetFontGroups())
+            {
+                FontGroups.Add(g);
+            }
         }
 
         public void FontClicked(object sender, ItemClickEventArgs e)

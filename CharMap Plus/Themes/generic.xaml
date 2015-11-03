@@ -209,7 +209,7 @@
                                         <Setter Target="RootSplitView.(SplitView.IsPaneOpen)" Value="True"/>
                                         <Setter Target="TogglePaneButton.(UIElement.Visibility)" Value="Collapsed"/>
                                         <Setter Target="TitleBorder.(Border.Background)" Value="{StaticResource MenuBackgroundBrush}"/>
-                                        <Setter Target="MainTitle.(Control.Foreground)" Value="White"/>
+                                        <Setter Target="MainTitle.(FrameworkElement.RequestedTheme)" Value="Dark"/>
                                         
                                     </VisualState.Setters>
                                     <VisualState.StateTriggers>
@@ -250,7 +250,7 @@
                                 <Grid Background="{ThemeResource MenuBackgroundBrush}">
                                     <StackPanel>
                                         <controls:MenuButton NavigateUri="HomePage" Content="HOME" Tag="&#xE10F;" />
-                                        <controls:MenuButton NavigateUri="DownloadPage" Content="REFRESH" Tag="&#xE10F;" />
+                                        <controls:MenuButton x:Name="RefreshButton" Content="REFRESH" Tag="&#xE117;" />
                                         <controls:MenuButton x:Name="Download" NavigateUri="DownloadPage" Content="DOWNLOAD" Tag="&#xE118;" />
                                     </StackPanel>
                                     <Border VerticalAlignment="Bottom" BorderBrush="{ThemeResource TitleBarBackgroundBrush}" BorderThickness="0,1,0,0">
