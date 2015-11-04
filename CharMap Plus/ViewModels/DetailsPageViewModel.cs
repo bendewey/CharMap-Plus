@@ -44,6 +44,7 @@ namespace CharMap_Plus.ViewModels
                 {
                     var codes = fontMatch.CharacterCodes.Select(c => new FontChar()
                     {
+                        Name = c.Key,
                         Char = (char)c.Value,
                         Family = SelectedFontFamily,
                         Size = 48
@@ -57,15 +58,16 @@ namespace CharMap_Plus.ViewModels
             }
             else
             {
-                var enumer = new FontEnumeration.FontEnumerator();
-                var codes = enumer.ListSupportedChars(SelectedFontFamily).Where(c => c > 0 && c != 10 && c != 13 && c != 20).Select(c => new FontChar()
-                {
-                    Char = (char)c,
-                    Family = SelectedFontFamily,
-                    Size = 38
-                });
-                Chars.Source = new PagedSource<FontChar>(codes);
-                foreach (var c in codes)
+                //    var enumer = new FontEnumeration.FontEnumerator();
+                //    var codes = enumer.ListSupportedChars(SelectedFontFamily).Where(c => c > 0 && c != 10 && c != 13 && c != 20).Select(c => new FontChar()
+                //    {
+                //        Name = App.Repository.GetCharName(c),
+                //        Char = (char)c,
+                //        Family = SelectedFontFamily,
+                //        Size = 38
+                //    });
+                //Chars.Source = new PagedSource<FontChar>(codes);
+                foreach (var c in fontMatch.FontChars)
                 {
                     Chars2.Add(c);
                 }

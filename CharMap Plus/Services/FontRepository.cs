@@ -6,11 +6,13 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace CharMap_Plus.Services
 {
     public class FontRepository
     {
+        public Dictionary<string, string> UnicodeMap;
         public FontGroup InstalledFonts;
         public FontGroup OnlineFonts;
 
@@ -22,9 +24,21 @@ namespace CharMap_Plus.Services
             }
         }
 
-        
+        public Task RefreshAsync()
+        {
+            InstalledFonts = null;
+            return LoadAsync();
+        }
+
+
         public async Task LoadAsync()
         {
+            if (UnicodeMap == null)
+            {
+                var codesList = await GetFromFile<List<UnicodeChar>>("ms-appx:///Fonts/ucd.json");
+                UnicodeMap = codesList.ToDictionary(c => c.code, c => c.name);
+            }
+
             if (InstalledFonts == null)
             {
                 InstalledFonts = new FontGroup();
@@ -35,6 +49,30 @@ namespace CharMap_Plus.Services
                 {
                     InstalledFonts.Add(new FontDetail() { Name = f, Type = "Installed", CharacterCount = 192 });
                 }
+
+                Task.Run(() => {
+                    try
+                    {
+                        var enumer2 = new FontEnumeration.FontEnumerator();
+                        foreach (var f in InstalledFonts)
+                        {
+                            var codes = enumer2.ListSupportedChars(f.Name);
+                            f.FontChars = codes.Where(c => c > 0 && c != 10 && c != 13 && c != 20).Select(c => new FontChar()
+                            {
+                                Name = GetCharName(c),
+                                Char = (char)c,
+                                Family = f.Name,
+                                Size = 38
+                            }).ToList();
+                            f.CharacterCount = f.FontChars.Count;
+                            Debug.WriteLine("loaded font chars for " + f);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine(ex.ToString());
+                    }
+                });
             }
 
             if (OnlineFonts == null)
@@ -69,19 +107,25 @@ namespace CharMap_Plus.Services
             return AllFonts.FirstOrDefault(f => f.Name == name);
         }
 
-        private async Task<List<FontDetail>> GetFromFile(string fileUrl)
+        private async Task<T> GetFromFile<T>(string fileUrl)
         {
             var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri(fileUrl));
             var json = await FileIO.ReadTextAsync(file);
-            var array = JsonConvert.DeserializeObject<List<FontDetail>>(json);
-
-            var newJson = JsonConvert.SerializeObject(array);
+            var array = JsonConvert.DeserializeObject<T>(json);
             return array;
+        }
+
+        public string GetCharName(uint code)
+        {
+            var hex = code.ToString("x").PadLeft(4, '0').ToUpper();
+            string value;
+            UnicodeMap.TryGetValue(hex, out value);
+            return value ?? "Personal Use";
         }
 
         public Task<List<FontDetail>> GetOnlineFonts()
         {
-            return GetFromFile("ms-appx:///Fonts/onlinefonts.json");
+            return GetFromFile<List<FontDetail>>("ms-appx:///Fonts/onlinefonts.json");
         }
     }
 }

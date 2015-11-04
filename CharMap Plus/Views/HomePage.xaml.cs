@@ -32,7 +32,7 @@ namespace CharMap_Plus.Views
         {
             try
             {
-                await ViewModel.Load();
+                await ViewModel.Refresh();
             }
             catch (Exception ex)
             {

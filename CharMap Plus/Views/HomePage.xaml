@@ -69,6 +69,7 @@
     <Page.BottomAppBar>
         <CommandBar Background="{ThemeResource TitleBarBackgroundBrush}">
             <AppBarButton x:Name="AddItemBtn" Label="Add Item" Icon="Add"  />
+            <AppBarButton x:Name="CopyItemBtn" Label="Copy Item" Icon="Copy" />
         </CommandBar>
     </Page.BottomAppBar>
     -->

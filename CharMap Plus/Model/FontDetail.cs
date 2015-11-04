@@ -11,6 +11,11 @@ namespace CharMap_Plus.Model
 {
     public class FontDetail
     {
+        public FontDetail()
+        {
+            FontChars  = new List<FontChar>();
+        }
+
         public string Name { get; set; }
 
         private string _family;
@@ -35,6 +40,9 @@ namespace CharMap_Plus.Model
 
         [JsonProperty(ItemConverterType = typeof(HexMapConverter))]
         public Dictionary<string, int> CharacterCodes { get; set; }
+
+        [JsonIgnore]
+        public List<FontChar> FontChars { get; set; }
     }
 
     public class HexMapConverter : JsonConverter

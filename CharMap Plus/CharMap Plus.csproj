@@ -111,6 +111,9 @@
     <Content Include="Fonts\ModernUI-Drawing.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Fonts\ucd.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
@@ -125,6 +128,7 @@
     <Compile Include="Model\IPagedSource.cs" />
     <Compile Include="Model\PagedResponse.cs" />
     <Compile Include="Model\PagedSource.cs" />
+    <Compile Include="Model\UnicodeChar.cs" />
     <Compile Include="Services\FontRepository.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\DetailsPageViewModel.cs" />

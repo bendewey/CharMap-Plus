@@ -8,6 +8,8 @@ namespace CharMap_Plus.Model
 {
     public class FontChar
     {
+
+        public string Name { get; set; }
         public char Char { get; set; }
 
         public string CharCode { get { return ((int)Char).ToString("X").PadLeft(4, '0'); } }

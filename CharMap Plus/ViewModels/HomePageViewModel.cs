@@ -42,9 +42,22 @@ namespace CharMap_Plus.ViewModels
 
         public async Task Load()
         {
+            if (FontGroups.Count == 0)
+            {
+                await App.Repository.LoadAsync();
+                foreach (var g in App.Repository.GetFontGroups())
+                {
+                    FontGroups.Add(g);
+                }
+            }
+            
+        }
+
+        public async Task Refresh()
+        {
             FontGroups.Clear();
-            await App.Repository.LoadAsync();
-            foreach(var g in App.Repository.GetFontGroups())
+            await App.Repository.RefreshAsync();
+            foreach (var g in App.Repository.GetFontGroups())
             {
                 FontGroups.Add(g);
             }

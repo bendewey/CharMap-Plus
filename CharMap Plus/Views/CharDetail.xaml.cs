@@ -38,5 +38,10 @@ namespace CharMap_Plus.Views
                 Clipboard.SetContent(dataPackage);
             }
         }
+
+        private void Invert_Click(object sender, RoutedEventArgs e)
+        {
+            CharBorder.RequestedTheme = CharBorder.RequestedTheme == ElementTheme.Dark ? ElementTheme.Light : ElementTheme.Dark;
+        }
     }
 }
