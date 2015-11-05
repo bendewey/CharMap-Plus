@@ -122,6 +122,7 @@
     </Compile>
     <Compile Include="Controls\MenuButton.cs" />
     <Compile Include="Controls\PageContainer.cs" />
+    <Compile Include="Converters\BoolToActiveBrushConverter.cs" />
     <Compile Include="Model\BaseEntity.cs" />
     <Compile Include="Model\FontChar.cs" />
     <Compile Include="Model\UnicodeChar.cs" />
@@ -130,6 +131,9 @@
     <Compile Include="Services\OnlineAndLocalFontRepository.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\DetailsPageViewModel.cs" />
+    <Compile Include="Views\AboutPage.xaml.cs">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\CharDetail.xaml.cs">
       <DependentUpon>CharDetail.xaml</DependentUpon>
     </Compile>
@@ -170,6 +174,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Assets\AppTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AboutPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

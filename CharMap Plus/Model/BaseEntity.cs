@@ -28,7 +28,10 @@ namespace CharMap_Plus.Model
                 {
                     Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () =>
                     {
-                        PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+                        if (PropertyChanged != null)
+                        {
+                            PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+                        }
                     });
                 }
                 else

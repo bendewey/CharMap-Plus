@@ -1,0 +1,25 @@
+﻿<Page
+    x:Class="CharMap_Plus.Views.AboutPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CharMap_Plus.Views"
+    xmlns:controls="using:CharMap_Plus.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+
+    <Page.Transitions>
+        <TransitionCollection>
+            <NavigationThemeTransition />
+        </TransitionCollection>
+    </Page.Transitions>
+
+    <controls:PageContainer Title="About CharMap Plus">
+        <Grid Margin="40">
+            <StackPanel>
+                <TextBlock Text="CharMap Plus is a new revamped version of CharMap for Windows" />
+            </StackPanel>
+        </Grid>
+    </controls:PageContainer>
+</Page>

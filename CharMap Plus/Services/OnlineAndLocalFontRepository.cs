@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
 
 namespace CharMap_Plus.Services
 {
@@ -27,6 +28,7 @@ namespace CharMap_Plus.Services
 
                 InstalledFonts = new FontGroup();
                 InstalledFonts.Description = "Installed Locally";
+                InstalledFonts.HasFonts = true;
                 foreach (var f in installedFonts)
                 {
                     f.Type = "Installed";
@@ -38,6 +40,7 @@ namespace CharMap_Plus.Services
             {
                 OnlineFonts = new FontGroup();
                 OnlineFonts.Description = "Online";
+                OnlineFonts.HasFonts = true;
                 foreach (var f in await GetOnlineFonts())
                 {
                     f.Type = "Online";
