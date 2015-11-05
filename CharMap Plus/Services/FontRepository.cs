@@ -2,12 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 using Newtonsoft.Json;
 using System.Diagnostics;
-using Windows.UI.Core;
 using Windows.System.Threading;
 
 namespace CharMap_Plus.Services
@@ -89,9 +87,13 @@ namespace CharMap_Plus.Services
 
             return Task.FromResult<object>(null);
         }
-
-    
-   public abstract List<FontGroup> GetFontGroups();
+        
+        public abstract List<FontGroup> GetFontGroups();
+        
+        public virtual List<FontGroup> GetFontGroupOptions()
+        {
+            return GetFontGroups();
+        }
 
         public FontDetail GetFont(string name)
         {

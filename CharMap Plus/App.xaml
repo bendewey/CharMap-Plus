@@ -3,13 +3,17 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:CharMap_Plus"
+    xmlns:converter="using:CharMap_Plus.Converters"
     RequestedTheme="Light">
 
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Assets/AppTheme.xaml" />
                 <ResourceDictionary Source="/Assets/AppStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <converter:BoolToActiveBrushConverter x:Key="BoolToActiveBrushConverter" TrueBrush="{StaticResource SemanticZoomActiveBrush}" FalseBrush="{StaticResource SemanticZoomDisabledBrush}" />
         </ResourceDictionary>
     </Application.Resources>
     

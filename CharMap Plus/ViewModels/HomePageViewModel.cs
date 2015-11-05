@@ -18,11 +18,19 @@ namespace CharMap_Plus.ViewModels
             set { Set(ref _fontGroups, value); }
         }
 
+        private ObservableCollection<FontGroup> _fontGroupOptions;
+        public ObservableCollection<FontGroup> FontGroupOptions
+        {
+            get { return _fontGroupOptions; }
+            set { Set(ref _fontGroupOptions, value); }
+        }
+
         public HomePageViewModel(Frame frame)
         {
             Frame = frame;
             
             FontGroups = new ObservableCollection<FontGroup>();
+            FontGroupOptions = new ObservableCollection<FontGroup>();
         }
 
         public async Task Load()
@@ -31,20 +39,27 @@ namespace CharMap_Plus.ViewModels
             {
                 await App.Repository.LoadAsync();
                 Log("Repository Loaded");
-                foreach (var g in App.Repository.GetFontGroups())
-                {
-                    FontGroups.Add(g);
-                }
+                AddFontsFromRepository();
             }   
         }
 
         public async Task Refresh()
         {
             FontGroups.Clear();
+            FontGroupOptions.Clear();
             await App.Repository.RefreshAsync();
+            AddFontsFromRepository();
+        }
+
+        public void AddFontsFromRepository()
+        {
             foreach (var g in App.Repository.GetFontGroups())
             {
                 FontGroups.Add(g);
+            }
+            foreach (var g in App.Repository.GetFontGroupOptions())
+            {
+                FontGroupOptions.Add(g);
             }
         }
 

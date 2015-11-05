@@ -122,6 +122,7 @@
     </Compile>
     <Compile Include="Controls\MenuButton.cs" />
     <Compile Include="Controls\PageContainer.cs" />
+    <Compile Include="Converters\BoolToActiveBrushConverter.cs" />
     <Compile Include="Model\BaseEntity.cs" />
     <Compile Include="Model\FontChar.cs" />
     <Compile Include="Model\UnicodeChar.cs" />
