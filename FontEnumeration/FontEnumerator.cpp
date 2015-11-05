@@ -172,10 +172,13 @@ Array<UINT32>^ FontEnumerator::ListSupportedChars(String^ fontName)
 		hr = pFontFamily->GetFont(0, &pFont);
 	}
 
-	BOOL hasChar;
-	for (UINT32 i = 0; i < 65535; i++) {
-		hr = pFont->HasCharacter(i, &hasChar);
-		charCodes[i] = hasChar ? i : 0;
+	if (SUCCEEDED(hr))
+	{
+		BOOL hasChar;
+		for (UINT32 i = 0; i < 65535; i++) {
+			hr = pFont->HasCharacter(i, &hasChar);
+			charCodes[i] = hasChar ? i : 0;
+		}
 	}
 	/*
 	DWRITE_UNICODE_RANGE range;
