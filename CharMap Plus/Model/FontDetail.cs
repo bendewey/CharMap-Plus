@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace CharMap_Plus.Model
 {
-    public class FontDetail
+    public class FontDetail : BaseEntity
     {
         public FontDetail()
         {
@@ -34,7 +34,7 @@ namespace CharMap_Plus.Model
             }
             set
             {
-                _characterCount = value;
+                Set(ref _characterCount, value);
             }
         }
 
@@ -43,6 +43,10 @@ namespace CharMap_Plus.Model
 
         [JsonIgnore]
         public List<FontChar> FontChars { get; set; }
+        public void TriggerCharacterCountChanged()
+        {
+            OnPropertyChanged("CharacterCount");
+        }
     }
 
     public class HexMapConverter : JsonConverter

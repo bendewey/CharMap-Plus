@@ -1,11 +1,6 @@
 ﻿using CharMap_Plus.Model;
 using CharMap_Plus.Views;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
@@ -26,18 +21,8 @@ namespace CharMap_Plus.ViewModels
         public HomePageViewModel(Frame frame)
         {
             Frame = frame;
-
-            //var g = new FontGroup()
-            //{
-            //    Description = "Test",
-            //};
-            //g.Add(new FontDetail() { Name = "Arial" });
-
+            
             FontGroups = new ObservableCollection<FontGroup>();
-            //{
-            //g
-            //};
-
         }
 
         public async Task Load()
@@ -45,12 +30,12 @@ namespace CharMap_Plus.ViewModels
             if (FontGroups.Count == 0)
             {
                 await App.Repository.LoadAsync();
+                Log("Repository Loaded");
                 foreach (var g in App.Repository.GetFontGroups())
                 {
                     FontGroups.Add(g);
                 }
-            }
-            
+            }   
         }
 
         public async Task Refresh()

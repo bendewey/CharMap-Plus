@@ -39,7 +39,7 @@
                 <TextBlock Text="{x:Bind Type}" Style="{StaticResource AppListItemDetailsTextBlockStyle}" Grid.Row="2" Grid.Column="1" />
 
                 <TextBlock Text="Characters:" Style="{StaticResource AppListItemDetailsTextBlockStyle}" Grid.Row="2" Grid.Column="2" />
-                <TextBlock Text="{x:Bind CharacterCount}" Style="{StaticResource AppListItemDetailsTextBlockStyle}" Grid.Row="2" Grid.Column="3" />
+                <TextBlock Text="{Binding CharacterCount, Mode=OneWay}" Style="{StaticResource AppListItemDetailsTextBlockStyle}" Grid.Row="2" Grid.Column="3" />
             </Grid>
         </DataTemplate>
     </Page.Resources>

@@ -156,6 +156,7 @@
                     </DataTemplate>
                 </Setter.Value>
             </Setter>
+            <Setter Property="TextWrapping" Value="WrapWholeWords"/>
         </Style>
     </UserControl.Resources>
     <Grid>

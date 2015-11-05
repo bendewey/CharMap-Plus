@@ -17,7 +17,7 @@
     </Page.Transitions>
 
     <Page.Resources>
-        <CollectionViewSource x:Name="CharsCVS"  Source="{x:Bind ViewModel.Chars2, Mode=OneWay}" />
+        <CollectionViewSource x:Name="CharsCVS"  Source="{x:Bind ViewModel.Chars, Mode=OneWay}" />
         
         <Style x:Key="CharButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="{ThemeResource ButtonBackgroundBrush}"/>

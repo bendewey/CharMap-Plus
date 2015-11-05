@@ -7,107 +7,98 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Newtonsoft.Json;
 using System.Diagnostics;
+using Windows.UI.Core;
+using Windows.System.Threading;
 
 namespace CharMap_Plus.Services
 {
-    public class FontRepository
+    public abstract class FontRepository
     {
         public Dictionary<string, string> UnicodeMap;
-        public FontGroup InstalledFonts;
-        public FontGroup OnlineFonts;
 
-        public IEnumerable<FontDetail> AllFonts
-        {
-            get
-            {
-                return InstalledFonts.Union(OnlineFonts);
-            }
-        }
+        public List<FontDetail> AllFonts { get; set; }
 
-        public Task RefreshAsync()
+        public virtual Task RefreshAsync()
         {
-            InstalledFonts = null;
+            AllFonts = null;
             return LoadAsync();
         }
 
 
-        public async Task LoadAsync()
+        public virtual Task LoadAsync()
         {
-            if (UnicodeMap == null)
+            if (AllFonts == null)
             {
-                var codesList = await GetFromFile<List<UnicodeChar>>("ms-appx:///Fonts/ucd.json");
-                UnicodeMap = codesList.ToDictionary(c => c.code, c => c.name);
-            }
-
-            if (InstalledFonts == null)
-            {
-                InstalledFonts = new FontGroup();
-                InstalledFonts.Description = "Installed Locally";
+                var allInstalledFonts = AllFonts = new List<FontDetail>();
 
                 var enumer = new FontEnumeration.FontEnumerator();
                 foreach (var f in enumer.ListSystemFonts().OrderBy(f => f))
                 {
-                    InstalledFonts.Add(new FontDetail() { Name = f, Type = "Installed", CharacterCount = 192 });
+                    AllFonts.Add(new FontDetail() { Name = f, Type = "Installed", CharacterCount = 0 });
                 }
 
-                Task.Run(() => {
+                var backgroundTask = ThreadPool.RunAsync(async _ =>
+                {
                     try
                     {
-                        var enumer2 = new FontEnumeration.FontEnumerator();
-                        foreach (var f in InstalledFonts)
+                        await Task.Delay(100);
+                        Debug.WriteLine("start loading Unicodemap");
+                        if (UnicodeMap == null)
                         {
-                            var codes = enumer2.ListSupportedChars(f.Name);
-                            f.FontChars = codes.Where(c => c > 0 && c != 10 && c != 13 && c != 20).Select(c => new FontChar()
-                            {
-                                Name = GetCharName(c),
-                                Char = (char)c,
-                                Family = f.Name,
-                                Size = 38
-                            }).ToList();
-                            f.CharacterCount = f.FontChars.Count;
-                            Debug.WriteLine("loaded font chars for " + f);
+                            var codesList = await GetFromFile<List<UnicodeChar>>("ms-appx:///Fonts/ucd.json");
+                            UnicodeMap = codesList.ToDictionary(c => c.code, c => c.name);
                         }
+                        Debug.WriteLine("loaded Unicodemap");
+
+                        foreach (var f in allInstalledFonts)
+                        {
+                        // these throw error on mobile
+                        if (f.Name == "Malgun Gothic") continue;
+                        if (f.Name == "Microsoft JhengHei") continue;
+                        if (f.Name == "Microsoft JhengHei UI") continue;
+                        if (f.Name == "Microsoft YaHei") continue;
+                        if (f.Name == "Microsoft YaHei UI") continue;
+                        if (f.Name == "Yu Gothic") continue;
+                        if (f.Name == "Yu Gothic UI") continue;
+
+                        await ThreadPool.RunAsync(
+                            w =>
+                            {
+                                var enumer2 = new FontEnumeration.FontEnumerator();
+                                var codes = enumer2.ListSupportedChars(f.Name);
+                                f.FontChars = codes.Where(c => c > 0 && c != 10 && c != 13 && c != 20).Select(c => new FontChar()
+                                {
+                                    Name = GetCharName(c),
+                                    Char = (char)c,
+                                    Family = f.Name,
+                                    Size = 38
+                                }).ToList();
+                                f.CharacterCount = f.FontChars.Count;
+                                Debug.WriteLine("loaded font chars for " + f.Name);
+                            }, WorkItemPriority.Low);
+
+                        }
+
                     }
                     catch (Exception ex)
                     {
                         Debug.WriteLine(ex.ToString());
                     }
-                });
+                }, WorkItemPriority.Low);
             }
 
-            if (OnlineFonts == null)
-            {
-                OnlineFonts = new FontGroup();
-                OnlineFonts.Description = "Online";
-                foreach (var f in await GetOnlineFonts())
-                {
-                    f.Type = "Online";
-                    OnlineFonts.Add(f);
-                }
-            }
+            return Task.FromResult<object>(null);
         }
 
-        public Task Refresh()
-        {
-            InstalledFonts = null;
-            OnlineFonts = null;
-            return LoadAsync();
-        }
-
-        public List<FontGroup> GetFontGroups()
-        {
-            return new List<FontGroup>() {
-                OnlineFonts,
-                InstalledFonts
-            };
-        }
+    
+   public abstract List<FontGroup> GetFontGroups();
 
         public FontDetail GetFont(string name)
         {
             return AllFonts.FirstOrDefault(f => f.Name == name);
         }
 
-        private async Task<T> GetFromFile<T>(string fileUrl)
+        protected async Task<T> GetFromFile<T>(string fileUrl)
         {
             var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri(fileUrl));
             var json = await FileIO.ReadTextAsync(file);
@@ -121,11 +112,6 @@ namespace CharMap_Plus.Services
             string value;
             UnicodeMap.TryGetValue(hex, out value);
             return value ?? "Personal Use";
-        }
-
-        public Task<List<FontDetail>> GetOnlineFonts()
-        {
-            return GetFromFile<List<FontDetail>>("ms-appx:///Fonts/onlinefonts.json");
         }
     }
 }

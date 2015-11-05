@@ -122,14 +122,12 @@
     </Compile>
     <Compile Include="Controls\MenuButton.cs" />
     <Compile Include="Controls\PageContainer.cs" />
-    <Compile Include="Model\IncrementalSource.cs" />
+    <Compile Include="Model\BaseEntity.cs" />
     <Compile Include="Model\FontChar.cs" />
-    <Compile Include="Model\IPagedResponse.cs" />
-    <Compile Include="Model\IPagedSource.cs" />
-    <Compile Include="Model\PagedResponse.cs" />
-    <Compile Include="Model\PagedSource.cs" />
     <Compile Include="Model\UnicodeChar.cs" />
+    <Compile Include="Services\AlphabeticalFontRepository.cs" />
     <Compile Include="Services\FontRepository.cs" />
+    <Compile Include="Services\OnlineAndLocalFontRepository.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\DetailsPageViewModel.cs" />
     <Compile Include="Views\CharDetail.xaml.cs">
