@@ -30,10 +30,7 @@ namespace CharMap_Plus.ViewModels
             if (field == null || !field.Equals(value))
             {
                 field = value;
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-                }
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
             }
         }
     }

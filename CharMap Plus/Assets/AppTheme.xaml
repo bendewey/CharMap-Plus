@@ -44,6 +44,22 @@
     <SolidColorBrush x:Key="ComboBoxPopupBackgroundBrush" Color="#FF325D88"/>
     <SolidColorBrush x:Key="ComboBoxPopupForegroundBrush" Color="White"/>
 
+    <SolidColorBrush x:Key="DetailsItemBorderBrush" Color="#FFdfd7ca"/>
+
+    <SolidColorBrush x:Key="ActionButtonForegroundBrush" Color="#FF2e2f2a"/>
+    <SolidColorBrush x:Key="ActionButtonBackgroundBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="ActionButtonBorderBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="ActionButtonPointerOverForegroundBrush" Color="#FF2e2f2a"/>
+    <SolidColorBrush x:Key="ActionButtonPointerOverBackgroundBrush" Color="#FFf8f5f0"/>
+    <SolidColorBrush x:Key="ActionButtonPointerOverBorderBrush" Color="#FFdfd7ca"/>
+    <SolidColorBrush x:Key="ActionButtonPressedForegroundBrush" Color="#FF2e2f2a"/>
+    <SolidColorBrush x:Key="ActionButtonPressedBackgroundBrush" Color="#FFdfd7ca"/>
+    <SolidColorBrush x:Key="ActionButtonPressedBorderBrush" Color="#FFdfd7ca"/>
+    <SolidColorBrush x:Key="ActionButtonDisabledForegroundBrush" Color="#992e2f2a"/>
+    <SolidColorBrush x:Key="ActionButtonDisabledBackgroundBrush" Color="Transparent"/>
+    <SolidColorBrush x:Key="ActionButtonDisabledBorderBrush" Color="Transparent"/>
+
+
     <ResourceDictionary.ThemeDictionaries>
         <ResourceDictionary x:Key="Default">
             <SolidColorBrush x:Key="CharDetailBackgroundBrush" Color="Transparent"/>

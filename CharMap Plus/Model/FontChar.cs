@@ -13,9 +13,10 @@ namespace CharMap_Plus.Model
         public char Char { get; set; }
 
         public string CharCode { get { return ((int)Char).ToString("X").PadLeft(4, '0'); } }
+        public string DecCharCode { get { return ((int)Char).ToString().PadLeft(4, '0'); } }
 
-        public string XamlCharCode { get { return "&#x" + ((int)Char).ToString("X").PadLeft(4, '0') + ";"; } }
-        public string DecCharCode { get { return "&#" + ((int)Char).ToString().PadLeft(4, '0') + ";"; } }
+        public string XamlHexCode { get { return "&#x" + ((int)Char).ToString("X").PadLeft(4, '0') + ";"; } }
+        public string XamlDecCode { get { return "&#" + ((int)Char).ToString().PadLeft(4, '0') + ";"; } }
         
 
         public string Family { get; set; }

@@ -278,7 +278,7 @@
 
                 <VisualState x:Name="PhoneLayout">
                     <VisualState.Setters>
-                        <Setter Target="Details.(FrameworkElement.MaxHeight)" Value="200"/>
+                        <Setter Target="Details.(FrameworkElement.MaxHeight)" Value="224"/>
                     </VisualState.Setters>
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="0" />
