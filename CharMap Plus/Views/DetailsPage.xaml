@@ -294,7 +294,7 @@
         </controls:PageContainer.TitleTemplate>
         <RelativePanel EntranceNavigationTransitionInfo.IsTargetElement="True">
 
-            <Grid x:Name="Details" MinWidth="320" RelativePanel.AlignRightWithPanel="True"
+            <Grid x:Name="Details" MinWidth="260" RelativePanel.AlignRightWithPanel="True"
               
                   RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True">
                 <local:CharDetail FontChar="{x:Bind ViewModel.SelectedChar, Mode=OneWay}" />
