@@ -8,7 +8,7 @@
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>CharMap_Plus</RootNamespace>
-    <AssemblyName>CharMap Plus</AssemblyName>
+    <AssemblyName>CharMapPlus</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
@@ -76,7 +76,7 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
-    <UseDotNetNativeToolchain>false</UseDotNetNativeToolchain>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
@@ -123,6 +123,7 @@
     <Compile Include="Controls\MenuButton.cs" />
     <Compile Include="Controls\PageContainer.cs" />
     <Compile Include="Converters\BoolToActiveBrushConverter.cs" />
+    <Compile Include="Converters\FontCharConverter.cs" />
     <Compile Include="Model\BaseEntity.cs" />
     <Compile Include="Model\FontChar.cs" />
     <Compile Include="Model\UnicodeChar.cs" />

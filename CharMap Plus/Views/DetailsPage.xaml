@@ -18,7 +18,7 @@
 
     <Page.Resources>
         <CollectionViewSource x:Name="CharsCVS"  Source="{x:Bind ViewModel.Chars, Mode=OneWay}" />
-        
+
         <Style x:Key="CharButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="{ThemeResource ButtonBackgroundBrush}"/>
             <Setter Property="Foreground" Value="{ThemeResource ButtonForegroundBrush}"/>
@@ -90,13 +90,15 @@
         </Style>
 
         <DataTemplate x:Key="CharDataTemplate" x:DataType="data:FontChar">
-            <Button Content="{x:Bind Char}" FontFamily="{x:Bind Family}" FontSize="{x:Bind Size}" MinHeight="60" MinWidth="60" Style="{StaticResource CharButtonStyle}">
-                <Button.Flyout>
+            <Grid Height="60" Width="60">
+                <TextBlock Text="{x:Bind Char}" FontFamily="{x:Bind Family}" FontSize="{x:Bind Size}" Foreground="Black" VerticalAlignment="Center" HorizontalAlignment="Center">
+               <!-- <Button.Flyout>
                     <Flyout>
                         <local:CharDetail FontChar="{x:Bind}" />
                     </Flyout>
-                </Button.Flyout>
-            </Button>
+                </Button.Flyout>-->
+                </TextBlock>
+            </Grid>
         </DataTemplate>
 
         <Style x:Key="CharGridViewTemplate" TargetType="GridViewItem">
@@ -106,21 +108,21 @@
             <Setter Property="Foreground" Value="{ThemeResource SystemControlForegroundBaseHighBrush}"/>
             <Setter Property="TabNavigation" Value="Local"/>
             <Setter Property="IsHoldingEnabled" Value="True"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
             <Setter Property="Margin" Value="0,0,4,4"/>
             <Setter Property="MinWidth" Value="{ThemeResource GridViewItemMinWidth}"/>
             <Setter Property="MinHeight" Value="{ThemeResource GridViewItemMinHeight}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="GridViewItem">
-                        <ContentPresenter HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                        <!--<ListViewItemPresenter CheckBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}" ContentMargin="{TemplateBinding Padding}" CheckMode="Overlay" ContentTransitions="{TemplateBinding ContentTransitions}" CheckBoxBrush="{ThemeResource SystemControlBackgroundChromeMediumBrush}" DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}" DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}" DragBackground="{ThemeResource ListViewItemDragBackgroundThemeBrush}" DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}" FocusBorderBrush="{ThemeResource SystemControlForegroundAltHighBrush}" FocusSecondaryBorderBrush="{ThemeResource SystemControlForegroundBaseHighBrush}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" PointerOverForeground="{ThemeResource SystemControlForegroundBaseHighBrush}" PressedBackground="{ThemeResource SystemControlHighlightListMediumBrush}" PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}" PointerOverBackground="{ThemeResource SystemControlHighlightListLowBrush}" ReorderHintOffset="{ThemeResource GridViewItemReorderHintThemeOffset}" SelectedPressedBackground="{ThemeResource SystemControlHighlightListAccentHighBrush}" SelectionCheckMarkVisualEnabled="True" SelectedForeground="{ThemeResource SystemControlForegroundBaseHighBrush}" SelectedPointerOverBackground="{ThemeResource SystemControlHighlightListAccentMediumBrush}" SelectedBackground="{ThemeResource SystemControlHighlightAccentBrush}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />-->
+                        <!--<ContentPresenter HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>-->
+                        <ListViewItemPresenter CheckBrush="{ThemeResource SystemControlForegroundBaseMediumHighBrush}" ContentMargin="{TemplateBinding Padding}" CheckMode="Overlay" ContentTransitions="{TemplateBinding ContentTransitions}" CheckBoxBrush="{ThemeResource SystemControlBackgroundChromeMediumBrush}" DragForeground="{ThemeResource ListViewItemDragForegroundThemeBrush}" DragOpacity="{ThemeResource ListViewItemDragThemeOpacity}" DragBackground="{StaticResource ButtonPressedBackgroundBrush}" DisabledOpacity="{ThemeResource ListViewItemDisabledThemeOpacity}" FocusBorderBrush="{ThemeResource SystemControlForegroundAltHighBrush}" FocusSecondaryBorderBrush="{ThemeResource SystemControlForegroundBaseHighBrush}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" PointerOverForeground="{StaticResource ButtonPointerOverForegroundBrush}" PressedBackground="{ThemeResource SystemControlHighlightListMediumBrush}" PlaceholderBackground="{ThemeResource ListViewItemPlaceholderBackgroundThemeBrush}" PointerOverBackground="{StaticResource ButtonPointerOverBackgroundBrush}" ReorderHintOffset="{ThemeResource GridViewItemReorderHintThemeOffset}" SelectedPressedBackground="{ThemeResource SystemControlHighlightListAccentHighBrush}" SelectionCheckMarkVisualEnabled="True" SelectedForeground="{StaticResource ButtonPressedForegroundBrush}" SelectedPointerOverBackground="{ThemeResource SystemControlHighlightListAccentMediumBrush}" SelectedBackground="{StaticResource ButtonPressedBackgroundBrush}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" ListViewItemPresenterHorizontalContentAlignment="Center" ListViewItemPresenterVerticalContentAlignment="Center" />
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
         <Style x:Key="TitleComboBoxStyle" TargetType="ComboBox">
             <Setter Property="Padding" Value="12,0,0,0"/>
             <Setter Property="MinWidth" Value="{ThemeResource ComboBoxThemeMinWidth}"/>
@@ -238,17 +240,76 @@
     </Page.Resources>
 
     <controls:PageContainer Title="{x:Bind ViewModel.SelectedFontFamily}">
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+
+                <VisualState x:Name="DesktopLayout">
+                    <VisualState.Setters>
+
+                        <Setter Target="CharsGrid.(RelativePanel.AlignBottomWithPanel)" Value="True"/>
+                        <Setter Target="CharsGrid.(RelativePanel.AlignRightWithPanel)" Value="False"/>
+                        <Setter Target="CharsGrid.(RelativePanel.Above)" Value=""/>
+                        <Setter Target="CharsGrid.(RelativePanel.LeftOf)" Value="Details"/>
+                        <Setter Target="Details.(RelativePanel.AlignLeftWithPanel)" Value="False"/>
+                        <Setter Target="Details.(RelativePanel.AlignTopWithPanel)" Value="True"/>
+
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1025" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+
+                <VisualState x:Name="TabletLayout">
+                    <VisualState.Setters>
+
+                        <Setter Target="CharsGrid.(RelativePanel.AlignBottomWithPanel)" Value="True"/>
+                        <Setter Target="CharsGrid.(RelativePanel.AlignRightWithPanel)" Value="False"/>
+                        <Setter Target="CharsGrid.(RelativePanel.Above)" Value=""/>
+                        <Setter Target="CharsGrid.(RelativePanel.LeftOf)" Value="Details"/>
+                        <Setter Target="Details.(RelativePanel.AlignLeftWithPanel)" Value="False"/>
+                        <Setter Target="Details.(RelativePanel.AlignTopWithPanel)" Value="True"/>
+
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="640" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+
+                <VisualState x:Name="PhoneLayout">
+                    <VisualState.Setters>
+                        <Setter Target="Details.(FrameworkElement.MaxHeight)" Value="200"/>
+                    </VisualState.Setters>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
         <controls:PageContainer.TitleTemplate>
             <DataTemplate>
                 <ComboBox x:Name="FontSelector" SelectedItem="{Binding}" ItemsSource="{Binding ViewModel.AllFonts, ElementName=PageRoot}" Style="{StaticResource TitleComboBoxStyle}" SelectionChanged="FontSelector_SelectionChanged" d:DesignWidth="455.5" d:DesignHeight="50"/>
             </DataTemplate>
         </controls:PageContainer.TitleTemplate>
-        <GridView  EntranceNavigationTransitionInfo.IsTargetElement="True"
-                   Grid.Row="1" ItemTemplate="{StaticResource CharDataTemplate}" ItemsSource="{x:Bind CharsCVS.View}" ItemContainerStyle="{StaticResource CharGridViewTemplate}" 
-                  
-                   IsItemClickEnabled="False"
-                  SelectionMode="None"
-                  >
-        </GridView>
+        <RelativePanel EntranceNavigationTransitionInfo.IsTargetElement="True">
+
+            <Grid x:Name="Details" MinWidth="320" RelativePanel.AlignRightWithPanel="True"
+              
+                  RelativePanel.AlignBottomWithPanel="True" RelativePanel.AlignLeftWithPanel="True">
+                <local:CharDetail FontChar="{x:Bind ViewModel.SelectedChar, Mode=OneWay}" />
+            </Grid>
+            <GridView x:Name="CharsGrid"
+                      RelativePanel.LeftOf=""
+                      RelativePanel.AlignLeftWithPanel="True"
+                    Grid.Row="1" 
+                    ItemTemplate="{StaticResource CharDataTemplate}" 
+                    ItemsSource="{x:Bind CharsCVS.View}" 
+                    ItemContainerStyle="{StaticResource CharGridViewTemplate}" 
+                    
+                      SelectedItem="{x:Bind ViewModel.SelectedChar, Converter={StaticResource FontCharConverter}, Mode=TwoWay}" RelativePanel.AlignRightWithPanel="True" RelativePanel.Above="Details" RelativePanel.AlignTopWithPanel="True"
+                  />
+
+        </RelativePanel>
     </controls:PageContainer>
 </Page>

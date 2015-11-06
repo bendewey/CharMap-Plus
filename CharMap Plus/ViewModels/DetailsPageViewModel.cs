@@ -14,6 +14,13 @@ namespace CharMap_Plus.ViewModels
             set { Set(ref _selectedFontFamily, value); }
         }
 
+        public FontChar _selectedChar;
+        public FontChar SelectedChar
+        {
+            get { return _selectedChar; }
+            set { Set(ref _selectedChar, value); }
+        }
+
         public ObservableCollection<string> AllFonts { get; set; }
         public ObservableCollection<FontChar> Chars { get; set; }
 
