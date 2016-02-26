@@ -208,8 +208,8 @@
                                         <Setter Target="RootSplitView.(SplitView.DisplayMode)" Value="CompactOverlay"/>
                                         <!--<Setter Target="RootSplitView.(SplitView.IsPaneOpen)" Value="False"/>-->
                                         <!--<Setter Target="TogglePaneButton.(UIElement.Visibility)" Value="Collapsed"/>-->
-                                        <Setter Target="TitleBorder.(Border.Background)" Value="{StaticResource MenuBackgroundBrush}"/>
-                                        <Setter Target="MainTitle.(FrameworkElement.RequestedTheme)" Value="Dark"/>
+                                        <!--<Setter Target="TitleBorder.(Border.Background)" Value="{StaticResource MenuBackgroundBrush}"/>
+                                        <Setter Target="MainTitle.(FrameworkElement.RequestedTheme)" Value="Dark"/>-->
                                         
                                     </VisualState.Setters>
                                     <VisualState.StateTriggers>
