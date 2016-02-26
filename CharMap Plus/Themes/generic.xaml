@@ -251,12 +251,12 @@
                                     <StackPanel>
                                         <controls:MenuButton NavigateUri="HomePage" Content="HOME" Tag="&#xE10F;" />
                                         <controls:MenuButton x:Name="RefreshButton" Content="REFRESH" Tag="&#xE117;" />
-                                        <controls:MenuButton x:Name="Download" NavigateUri="DownloadPage" Content="DOWNLOAD" Tag="&#xE118;" />
+                                        <!--<controls:MenuButton x:Name="Download" NavigateUri="DownloadPage" Content="DOWNLOAD" Tag="&#xE118;" />-->
                                     </StackPanel>
                                     <Border VerticalAlignment="Bottom" BorderBrush="{ThemeResource TitleBarBackgroundBrush}" BorderThickness="0,1,0,0">
                                         <StackPanel>
                                             <controls:MenuButton NavigateUri="AboutPage" Content="ABOUT" Tag="&#xE12B;" />
-                                            <controls:MenuButton NavigateUri="SettingsPage" Content="SETTINGS" Tag="&#xE713;" />
+                                            <!--<controls:MenuButton NavigateUri="SettingsPage" Content="SETTINGS" Tag="&#xE713;" />-->
                                         </StackPanel>
                                     </Border>
                                 </Grid>
