@@ -18,7 +18,9 @@
     <controls:PageContainer Title="About CharMap Plus">
         <Grid Margin="40">
             <StackPanel>
-                <TextBlock Text="CharMap Plus is a new revamped version of CharMap for Windows" />
+                <TextBlock Text="CharMap Plus is a Universal Windows App version of a original CharMap app that shipped with Windows.  It's a great tool for visualing fonts and obscure font characters within font libraries." TextWrapping="Wrap" Margin="0,6,0,6" />
+                <TextBlock Text="This app is developed as an open source app to enable the community to help contribute to it's evolution.  Interested developers and designers can visit the repository on GitHub and submit pull requests to help evolve the app, submit features, and/or log issues." TextWrapping="Wrap" Margin="0,6,0,6" />
+                <HyperlinkButton NavigateUri="http://github.com/bendewey/CharMap-Plus" Content="http://github.com/bendewey/CharMap-Plus" />
             </StackPanel>
         </Grid>
     </controls:PageContainer>
