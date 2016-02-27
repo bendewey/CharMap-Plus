@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="909bc0b0-642d-47ea-a2ad-deeacd4a7b95" Publisher="CN=bdewey" Version="1.0.0.0" />
+  <Identity Name="38004Nuology.CharMapPlus" Publisher="CN=4A9A8C64-B7CA-47DC-B455-CD0502DF2B2C" Version="1.1.4.0" />
   <mp:PhoneIdentity PhoneProductId="909bc0b0-642d-47ea-a2ad-deeacd4a7b95" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>CharMap Plus</DisplayName>
-    <PublisherDisplayName>bdewey</PublisherDisplayName>
+    <PublisherDisplayName>Nuology</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
