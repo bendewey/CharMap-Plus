@@ -300,7 +300,7 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Grid.ColumnSpan="2">
                 <Button Content="&#xE16F;" Style="{StaticResource ActionButtonStyle}" Click="CharButton_Click" />
                 <Button Content="&#xE1D2;" Style="{StaticResource ActionButtonStyle}" Click="Invert_Click" />
-                <Button Content="&#xE224;" Style="{StaticResource ActionButtonStyle}" Click="Favorite_Click" />
+                <!--<Button Content="&#xE224;" Style="{StaticResource ActionButtonStyle}" Click="Favorite_Click" />-->
             </StackPanel>
 
 
